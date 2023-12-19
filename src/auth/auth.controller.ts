@@ -1,23 +1,16 @@
-import {
-  Body,
-  Controller,
-  Post,
-  HttpCode,
-  HttpStatus,
-  Get,
-  Request,
-  UseGuards,
-} from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { UsersService } from '../users/users.service';
-import { AuthGuard } from './auth.guard';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from "@nestjs/common";
+import { AuthService } from "./auth.service";
+import { UsersService } from "../users/users.service";
+import { AuthGuard } from "./auth.guard";
 
-@Controller('auth')
+@Controller("auth")
 export class AuthController {
   constructor(
     private authService: AuthService,
-    private userService: UsersService,
-  ) {}
+    private userService: UsersService
+  ) {
+  }
+
   @HttpCode(HttpStatus.OK)
   @Post('registration')
   createUser(@Body() ReqBody: Record<string, any>) {
@@ -27,8 +20,8 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   findOne(@Body() signInDto: Record<string, any>) {
-    const { email, pass } = signInDto;
-    return this.authService.signIn(email, pass);
+    const { email, password } = signInDto;
+    return this.authService.signIn(email, password);
   }
 
   @UseGuards(AuthGuard)
