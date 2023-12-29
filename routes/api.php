@@ -39,7 +39,7 @@ Route::group([
 // Emails
     Route::get('/emails/{folderId}', [EmailController::class, 'index']);
     Route::get('/getCount', [EmailController::class, 'getCount']);
-    Route::get('/emails/{id}', [EmailController::class, 'show']);
+    Route::get('/email/{id}', [EmailController::class, 'show']);
     Route::post('/emails', [EmailController::class, 'store']);
 
 // Attachments
