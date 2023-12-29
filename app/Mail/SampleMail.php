@@ -19,7 +19,7 @@ class SampleMail extends Mailable
         $this->content = $content;
     }
 
-    public function build(): Content
+    public function build(): SampleMail
     {
         return $this->subject($this->content['subject'])
             ->view('emails.sample');
