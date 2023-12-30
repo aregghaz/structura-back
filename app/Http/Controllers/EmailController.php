@@ -50,6 +50,7 @@ class EmailController extends Controller
 
         $email->sender_id = $request->user()->id;
         $email->owner_id = $request->user()->id;
+        $email->folder_id = 2;
         if ($email->save()) {
             $file = $request->file('pdf');
             $attachment = new Attachment();
