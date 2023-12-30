@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Mail;
 
 class SendMailController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $content = [
             'subject' => 'This is the mail subject',
             'body' => 'This is the email body of how to send email from laravel 10 with mailtrap.'
         ];
 
-      $status =  Mail::to('aregghaz@gmail.com')->send(new SampleMail($content));
+      $status =  Mail::to($request->email)->send(new SampleMail($content));
 dd($status);
         return "Email has been sent.";
     }
