@@ -12,9 +12,9 @@ class EmailController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request,$folderId)
+    public function index(Request $request, $folderId)
     {
-        $id =$request->user()->id;
+        $id = $request->user()->id;
         $emails = Email::with('sender', 'recipient', 'attachments', 'statuses')->where([
             'owner_id' => $id,
             'folder_id' => (int)$folderId,
@@ -56,7 +56,6 @@ class EmailController extends Controller
         $email->folder_id = $request->folderId;
         if ($email->save()) {
             $file = $request->file('pdf');
-
             $attachment = new Attachment();
             $attachment->email_id = $email->id;
             $attachment->file_name = $request->file('pdf')->getClientOriginalName();
@@ -67,5 +66,13 @@ class EmailController extends Controller
             return response()->json('error', 500);
         }
 
+    }
+
+    public function changeFolder(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $email = Email::findOrFail($request->id);
+        $email->folder_id = $request->folderId;
+        $email->update();
+        return response()->json($email, 201);
     }
 }

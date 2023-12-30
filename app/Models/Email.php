@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,5 +38,12 @@ class Email extends Model
     {
         return $this->hasMany(EmailStatus::class);
     }
+    public static function findOrFail($id, $columns = ['*'])
+    {
+        if (is_array($id) || $id instanceof Arrayable) {
+            return static::query()->findOrFail($id, $columns);
+        }
 
+        return static::query()->whereKey($id)->firstOrFail($columns);
+    }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('recipient_id')->nullable();
             $table->enum('status', [ "new","partially","sent","signed","torn"])->default('new');
             $table->string('subject')->nullable();
-            $table->text('body');
+            $table->text('body')->nullable();
             $table->timestamps();
         });
     }
