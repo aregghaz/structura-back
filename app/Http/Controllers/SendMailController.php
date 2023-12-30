@@ -15,8 +15,8 @@ class SendMailController extends Controller
             'body' => 'This is the email body of how to send email from laravel 10 with mailtrap.'
         ];
 
-      $status =  Mail::to($request->email)->send(new SampleMail($content));
-dd($status);
-        return "Email has been sent.";
+        $status = Mail::to($request->email)->send(new SampleMail($content));
+
+        return response()->json($status, 200);
     }
 }
