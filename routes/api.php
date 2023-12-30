@@ -41,7 +41,7 @@ Route::group([
     Route::get('/getCount', [EmailController::class, 'getCount']);
     Route::get('/email/{id}', [EmailController::class, 'show']);
     Route::post('/emails', [EmailController::class, 'store']);
-    Route::post('/changeFolder', [EmailController::class, 'changeFolder']);
+    Route::get('/changeFolder{id}/{docId}', [EmailController::class, 'changeFolder']);
     Route::post('/saveFile', [EmailController::class, 'saveFile']);
 
 // Attachments

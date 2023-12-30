@@ -47,10 +47,16 @@ class EmailController extends Controller
             /// 'body' => 'required',
         ]);
         $email = new Email();
+
         $email->sender_id = $request->user()->id;
         $email->owner_id = $request->user()->id;
-        $email->folder_id = 2;
         if ($email->save()) {
+            $file = $request->file('pdf');
+            $attachment = new Attachment();
+            $attachment->email_id = $email->id;
+            $attachment->file_name = $request->file('pdf')->getClientOriginalName();
+            $attachment->file_content = $file;
+            $attachment->save();
             return response()->json($email, 201);
         } else {
             return response()->json('error', 500);
@@ -58,10 +64,10 @@ class EmailController extends Controller
 
     }
 
-    public function changeFolder(Request $request): \Illuminate\Http\JsonResponse
+    public function changeFolder(Request $request, $id, $docId): \Illuminate\Http\JsonResponse
     {
-        $email = Email::findOrFail($request->id);
-        $email->folder_id = $request->folderId;
+        $email = Email::findOrFail($id);
+        $email->folder_id = $docId;
         $email->update();
         return response()->json($email, 201);
     }
