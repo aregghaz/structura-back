@@ -47,20 +47,10 @@ class EmailController extends Controller
             /// 'body' => 'required',
         ]);
         $email = new Email();
-
         $email->sender_id = $request->user()->id;
         $email->owner_id = $request->user()->id;
-        $email->recipient_id = $request->user()->id;
-        $email->subject = 'new Document';
-        $email->body = 'new Document';
-        $email->folder_id = $request->folderId;
+        $email->folder_id = 2;
         if ($email->save()) {
-            $file = $request->file('pdf');
-            $attachment = new Attachment();
-            $attachment->email_id = $email->id;
-            $attachment->file_name = $request->file('pdf')->getClientOriginalName();
-            $attachment->file_content = $file;
-            $attachment->save();
             return response()->json($email, 201);
         } else {
             return response()->json('error', 500);
