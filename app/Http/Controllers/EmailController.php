@@ -75,4 +75,23 @@ class EmailController extends Controller
         $email->update();
         return response()->json($email, 201);
     }
+
+    public function saveFile(Request $request): \Illuminate\Http\JsonResponse
+    {
+        if ($request->file('pdf')) {
+            $file = $request->file('pdf');
+            $attachment = new Attachment();
+            $attachment->email_id = $request->id;
+            $attachment->file_name = $request->file('pdf')->getClientOriginalName();
+            $attachment->file_content = $file;
+            if ($attachment->save()) {
+                return response()->json($attachment, 201);
+            } else {
+                return response()->json('error', 500);
+            }
+        } else {
+            return response()->json('error', 500);
+        }
+
+    }
 }

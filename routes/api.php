@@ -42,6 +42,7 @@ Route::group([
     Route::get('/email/{id}', [EmailController::class, 'show']);
     Route::post('/emails', [EmailController::class, 'store']);
     Route::post('/changeFolder', [EmailController::class, 'changeFolder']);
+    Route::post('/saveFile', [EmailController::class, 'saveFile']);
 
 // Attachments
     Route::get('/attachments', [AttachmentController::class, 'index']);
