@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('email_id');
             $table->unsignedBigInteger('folder_id');
             $table->primary(['email_id', 'folder_id']);
-            $table->foreign('email_id')->references('id')->on('emails');
+//            $table->foreign('email_id')->references('id')->on('emails');
         });
     }
 
