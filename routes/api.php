@@ -30,7 +30,7 @@ Route::group([
 Route::group([
      'middleware' => 'auth:api'
 ], function () {
-    Route::post('/send-mail', [SendMailController::class, 'index']);
+
 
     // Users
     Route::get('/users', [UserController::class, 'index']);
@@ -43,6 +43,9 @@ Route::group([
     Route::post('/emails', [EmailController::class, 'store']);
     Route::get('/changeFolder/{id}/{docId}', [EmailController::class, 'changeFolder']);
     Route::post('/saveFile', [EmailController::class, 'saveFile']);
+    Route::post('/send-mail', [SendMailController::class, 'index']);
+
+
 
 // Attachments
     Route::get('/attachments', [AttachmentController::class, 'index']);
