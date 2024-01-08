@@ -8,6 +8,7 @@ use App\Models\EmailFolder;
 use App\Models\UserEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class EmailController extends Controller
 {
@@ -28,12 +29,22 @@ class EmailController extends Controller
     public function getCount(Request $request)
     {
         $id = $request->user()->id;
-        ////FIXME FIX FOLDER PART
+
         /// $emails =  DB::table('emails')->distinct('folder_id')->count('folder_id');
         $emails = DB::select("SELECT folder_id as id, count(folder_id) count FROM email_folders where user_id = $id GROUP BY folder_id");
 
         ///$emails = Email::select('folder_id')->count();
         return response()->json($emails);
+    }
+    public function emailUsers(Request $request)
+    {
+//        $id = $request->user()->id;
+//        ////FIXME FIX FOLDER PART
+//        /// $emails =  DB::table('emails')->distinct('folder_id')->count('folder_id');
+//        $emails = UserEmail::where('user_id', $id)->get();
+//
+//        ///$emails = Email::select('folder_id')->count();
+//        return response()->json($emails);
     }
 
     public function show($id)
@@ -81,10 +92,15 @@ class EmailController extends Controller
                 ], 403);
             }
             $file = $request->file('pdf');
+          ///  $value = file_get_contents($request->file('pdf'));
+            Storage::put("documents/$email->id", $file);
+
             $attachment = new Attachment();
             $attachment->email_id = $email->id;
-            $attachment->file_name = $request->file('pdf')->getClientOriginalName();
+            $attachment->file_name = "documents/$email->id";
             $attachment->file_content = $file;
+//            $url = Storage::url("documents/$email->id");
+//            dd($url);
 
             if (!$attachment->save()) {
                 return response()->json([
