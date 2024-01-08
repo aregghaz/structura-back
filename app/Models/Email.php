@@ -33,6 +33,14 @@ class Email extends Model
     {
         return $this->hasMany(Attachment::class);
     }
+    public function emailFolder(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(EmailFolder::class,'email_id','id');
+    }
+    public function emailUsers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(UserEmail::class,'email_id','id');
+    }
 
     public function statuses()
     {

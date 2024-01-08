@@ -20,6 +20,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'surname',
         'fatherName',
@@ -28,6 +29,7 @@ class User extends Authenticatable
         'password',
         'dob',
         'email',
+        'status',
     ];
     public function sentEmails()
     {

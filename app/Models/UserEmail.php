@@ -5,12 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EmailFolder extends Model
+class UserEmail extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'email_id',
-        'folder_id',
         'user_id',
+        'email_id',
+        'status',
+        'user_status',
     ];
+
+    public function users() {
+        return $this->hasOne(User::class,'id','user_id');
+
+    }
 }

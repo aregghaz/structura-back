@@ -6,6 +6,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\EmailStatusController;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,8 @@ Route::group([
     Route::get('/changeFolder/{id}/{docId}', [EmailController::class, 'changeFolder']);
     Route::post('/saveFile', [EmailController::class, 'saveFile']);
     Route::post('/send-mail', [SendMailController::class, 'index']);
+    // info emails
+    Route::post('/get-email-info', [UserEmailController::class, 'index']);
 
 
 

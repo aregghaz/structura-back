@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('emails', function(Blueprint $table){
             $table->unsignedBigInteger('owner_id')->after('sender_id');
-            $table->tinyInteger('folder_id')->after('owner_id');
         });
     }
 
