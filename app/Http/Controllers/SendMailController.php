@@ -37,6 +37,7 @@ class SendMailController extends Controller
         $userEmail = new UserEmail();
         $userEmail->user_id = $user->id;
         $userEmail->email_id = $request->docId;
+        ////FIXME ADD CHECK
         $userEmail->user_status = $request->userType;
         if (!$userEmail->save()) {
             return response()->json([

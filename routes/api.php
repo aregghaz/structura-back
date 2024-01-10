@@ -48,6 +48,7 @@ Route::group([
     Route::post('/send-mail', [SendMailController::class, 'index']);
     // info emails
     Route::post('/get-email-info', [UserEmailController::class, 'index']);
+    Route::get('/test', [UserEmailController::class, 'test']);
 
 
 

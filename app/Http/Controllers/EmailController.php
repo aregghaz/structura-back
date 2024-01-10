@@ -93,11 +93,12 @@ class EmailController extends Controller
             }
             $file = $request->file('pdf');
           ///  $value = file_get_contents($request->file('pdf'));
-            Storage::put("documents/$email->id", $file);
+            $storagePath =   Storage::put("public/documents/$email->id", $file);
+            $storageName = basename($storagePath);
 
             $attachment = new Attachment();
             $attachment->email_id = $email->id;
-            $attachment->file_name = "documents/$email->id";
+            $attachment->file_name = $storageName;
             $attachment->file_content = $file;
 //            $url = Storage::url("documents/$email->id");
 //            dd($url);
@@ -144,6 +145,11 @@ class EmailController extends Controller
         } else {
             return response()->json('error', 500);
         }
+
+    }
+
+
+    public function test(){
 
     }
 }
